@@ -31,9 +31,22 @@ public class NielWarnProj10 {
 //        symbolTable.insert("book");
 //        symbolTable.insert("rapport");
         symbolTable.viewItems();
-        item = symbolTable.delete("trampoline");
+        item = symbolTable.delete("operation");
         System.out.println("Deleted item: " + item);
 //        symbolTable.viewItems();
+        item = symbolTable.delete("franchise");
+        System.out.println("Deleted item: " + item);
+        item = symbolTable.delete("houses");
+        System.out.println("Deleted item: " + item);
+        item = symbolTable.delete("hello");
+        System.out.println("Deleted item: " + item);
+//        item = symbolTable.delete("variable");
+//        System.out.println("Deleted item: " + item);
+//        item = symbolTable.delete("dog");
+//        System.out.println("Deleted item: " + item);
+        symbolTable.viewItems();
+        item = symbolTable.delete("hellos");
+        System.out.println("Deleted item: " + item);
     }
     
 }

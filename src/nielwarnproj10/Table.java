@@ -35,21 +35,31 @@ public class Table<T extends Comparable<? super T>> {
     public String delete(String key) {
         int hash1 = hashOne(key);
         int hash2 = hashTwo(key);
-        String value;
+        String value = null;
         
         if (size == 0) {
             System.out.println("Table is empty");
             return "";
         }
         
-        while (items[hash1] != null) {
+        if (items[hash1] == null) {
+            System.out.println("Item does not exist");
+            return value;
+        }else if (items[hash1].compareTo(key) == 0 && usedArray[hash1] == true && items[hash1] != null) {
+            value = items[hash1];
+            items[hash1] = null;
+            size--;
+            return value;
+        } else if (items[hash1].compareTo(key) != 0) {
             hash1 = (hash1 + hash2) % MAX_SIZE;
+            value = items[hash1];
+            items[hash1] = null;
+            size--;
+            return value;
+        } else {
+            System.out.println("Couldn't find key");
+            return value;
         }
-        
-        value = items[hash1];
-        items[hash1] = null;
-        size--;
-        return value;
     }
     
     public void viewItems() {
@@ -80,6 +90,5 @@ public class Table<T extends Comparable<? super T>> {
             hashVal = HASH_SIZE_2 - (hashVal * 32 + letter) % HASH_SIZE_2; 
         }
         return hashVal;
-        
     }
 }
