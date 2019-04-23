@@ -4,11 +4,13 @@ public class Table<T extends Comparable<? super T>> {
     final int MAX_SIZE = 23;
     final int HASH_SIZE_2 = 19;
     private int size;
-    private final String[] items; // arraylist called items
+    private final boolean[] usedArray; // array to hold if index has been used
+    private final String[] items; // array called items
     
     // default constructor
     public Table() {
         items = new String[MAX_SIZE];
+        usedArray = new boolean[MAX_SIZE];
     }
     
     // method to insert an item into the table
@@ -26,7 +28,28 @@ public class Table<T extends Comparable<? super T>> {
         }
         
         items[hash1] = newItem;
+        usedArray[hash1] = true;
         size++;
+    }
+    
+    public String delete(String key) {
+        int hash1 = hashOne(key);
+        int hash2 = hashTwo(key);
+        String value;
+        
+        if (size == 0) {
+            System.out.println("Table is empty");
+            return "";
+        }
+        
+        while (items[hash1] != null) {
+            hash1 = (hash1 + hash2) % MAX_SIZE;
+        }
+        
+        value = items[hash1];
+        items[hash1] = null;
+        size--;
+        return value;
     }
     
     public void viewItems() {
@@ -36,7 +59,7 @@ public class Table<T extends Comparable<? super T>> {
             } else {
                 System.out.println(i + " " + items[i]);
             }
-        }
+        } 
     }
     
     private int hashOne(String key) {
@@ -44,7 +67,7 @@ public class Table<T extends Comparable<? super T>> {
         for (int i = 0; i < key.length(); i++) {
             // For small letters.
             int letter = key.charAt(i) - 96; 
-            hashVal = (hashVal * 32 + letter) % MAX_SIZE; // mod
+            hashVal = (hashVal * 32 + letter) % MAX_SIZE; 
         }
         return hashVal;
     }
@@ -54,7 +77,7 @@ public class Table<T extends Comparable<? super T>> {
         for (int i = 0; i < key.length(); i++) {
             // For small letters.
             int letter = key.charAt(i) - 96; 
-            hashVal = HASH_SIZE_2 - (hashVal * 32 + letter) % HASH_SIZE_2; // mod
+            hashVal = HASH_SIZE_2 - (hashVal * 32 + letter) % HASH_SIZE_2; 
         }
         return hashVal;
         

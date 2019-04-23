@@ -4,6 +4,7 @@ package nielwarnproj10;
 public class NielWarnProj10 {
     public static void main(String[] args) {
         Table<String> symbolTable = new Table<>();
+        String item;
         
         symbolTable.insert("hello");
         symbolTable.insert("goodbye");
@@ -24,12 +25,15 @@ public class NielWarnProj10 {
         symbolTable.insert("dog");
         symbolTable.insert("computer");
         symbolTable.insert("furniture");
-        symbolTable.insert("a");
-        symbolTable.insert("of");
-        symbolTable.insert("island");
-        symbolTable.insert("book");
-        symbolTable.insert("rapport");
+//        symbolTable.insert("a");
+//        symbolTable.insert("of");
+//        symbolTable.insert("island");
+//        symbolTable.insert("book");
+//        symbolTable.insert("rapport");
         symbolTable.viewItems();
+        item = symbolTable.delete("trampoline");
+        System.out.println("Deleted item: " + item);
+//        symbolTable.viewItems();
     }
     
 }
