@@ -103,9 +103,10 @@ public class Table<T extends Comparable<? super T>> {
             // its place in the alphabet equivalent
             if ((key.charAt(i) - 96) > 0) {
                 letter = key.charAt(i) - 96; 
-            // for upper case letters
-            } else if ((key.charAt(i) - 46 > 0)) {
-                letter = key.charAt(i) - 46; 
+            // for upper case letters, takes char at i and subtracts 38 to get
+            // its place in alphabet after first 26 letters, so 'A' starts at 27
+            } else if ((key.charAt(i) - 38 > 0)) {
+                letter = key.charAt(i) - 38; 
             }
             // use Horner's rule 
             hashVal = (hashVal * 32 + letter) % MAX_SIZE; 
@@ -123,9 +124,10 @@ public class Table<T extends Comparable<? super T>> {
             // its place in the alphabet equivalent
             if ((key.charAt(i) - 96) > 0) {
                 letter = key.charAt(i) - 96; 
-            // for upper case letters
-            } else if ((key.charAt(i) - 46 > 0)) {
-                letter = key.charAt(i) - 46;
+            // for upper case letters, takes char at i and subtracts 38 to get
+            // its place in alphabet after first 26 letters, so 'A' starts at 27
+            } else if ((key.charAt(i) - 38 > 0)) {
+                letter = key.charAt(i) - 38;
             }
             // use Horner's rule 
             hashVal = HASH_SIZE_2 - (hashVal * 32 + letter) % HASH_SIZE_2; 
