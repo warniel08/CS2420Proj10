@@ -18,13 +18,13 @@ public class Table<T extends Comparable<? super T>> {
     final int MAX_SIZE = 11;
     final int HASH_SIZE_2 = 7;
     private int size; // keep track of items array size
-//    private final boolean[] usedArray; // array to hold if index has been used
+    private final boolean[] usedArray; // array to hold if index has been used
     private final String[] items; // array called items
     
     // default constructor
     public Table() {
         items = new String[MAX_SIZE];
-//        usedArray = new boolean[MAX_SIZE];
+        usedArray = new boolean[MAX_SIZE];
     }
     
     // method to insert an item into the table as long
@@ -49,7 +49,7 @@ public class Table<T extends Comparable<? super T>> {
         // assigns the new item to the proper index
         items[hash1] = newItem;
         // sets the usedArray to true for that index
-//        usedArray[hash1] = true;
+        usedArray[hash1] = true;
         size++; // increment size of array
     }
     
@@ -58,48 +58,26 @@ public class Table<T extends Comparable<? super T>> {
     public String delete(String key) {
         int hash1 = hashOne(key);
         int hash2 = hashTwo(key);
-        String value = null;
+        String value;
         
-        while (items[hash1] != null && !items[hash1].equals(key)) {
-            hash1 += hash2;
-            hash1 %= MAX_SIZE;
+        // if array size is zero the print a message and get out of method
+        if (size == 0) {
+            System.out.println("Table is empty");
+            return "";
         }
-        value = items[hash1];
-        items[hash1] = null;
-        size--;
-        return value;
         
-//        // if array size is zero the print a message and get out of method
-//        if (size == 0) {
-//            System.out.println("Table is empty");
-//            return "";
-//        }
-//        
-//        // if the item at hash1 is null then print that the
-//        // item doesn't exist and return null
-//        if (items[hash1] == null) {
-//            System.out.println("Item does not exist");
-//            return value;
-//        // if the item at hash1 is equal to the key AND the usedArray at hash1
-//        // is set to true
-//        } else if (items[hash1].compareTo(key) == 0 && usedArray[hash1] == true && items[hash1] != null) {
-//            value = items[hash1]; // assign the item at hash1 to value
-//            items[hash1] = null; // remove item at hash1
-//            size--; // decrement the size of items in the array
-//            return value; // return the value deleted
-//        // otherwise, if the value at hash1 does not equal the key
-//        } else if (items[hash1].compareTo(key) != 0) {
-//            // set hash1 equal to hash1 + hash2 mod the array size
-//            hash1 = (hash1 + hash2) % MAX_SIZE; 
-//            value = items[hash1]; // set value equal to the item at the new hash1
-//            items[hash1] = null; // remove the item at new hash1
-//            size--; // decrement the size of items in array
-//            return value; // return value deleted
-//        // otherwise
-//        } else {
-//            System.out.println("Couldn't find key");
-//            return value;
-//        }
+        // while if items in hash1 is not null then return 
+        // not items sub hash1 equals key else return true
+        // AND usedArray sub hash1 is true
+        while (((items[hash1] != null ? (!items[hash1].equals(key)) : true) && usedArray[hash1] == true)) {
+            hash1 += hash2; // add hash1 and hash2
+            hash1 %= MAX_SIZE; // mod hash1 to table size
+        }
+        // assign items sub has1 to value
+        value = items[hash1];
+        items[hash1] = null; // delete the item
+        size--; // decrement size
+        return value; // return the value
     }
     
     // method to view all the items in the array and print the index

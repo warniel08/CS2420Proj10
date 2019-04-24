@@ -66,6 +66,7 @@ public class NielWarnProj10 {
                     System.out.print("Please enter a string to enter into the symbol table: ");
                     userKeyword = userInput.next();
                     valid = validSymbol(symbolArray, userKeyword);
+                    
                     if (valid) {
                         System.out.println("Cannot use key word '" + userKeyword + "'");
                     } else {
@@ -77,7 +78,10 @@ public class NielWarnProj10 {
                     System.out.print("Please enter a string to remove from symbol table: ");
                     userKeyword = userInput.next();
                     deletedKeyword = symbolTable.delete(userKeyword);
-                    if (deletedKeyword != null) {
+                    
+                    if (deletedKeyword.equals("")) {
+                        System.out.println("Nothing in table to delete");
+                    } else if (deletedKeyword != null) {
                         System.out.println("'" + deletedKeyword + "' removed from table");
                     } else {
                         System.out.println("'" + userKeyword + "' is not in the table, not removed from table");
