@@ -125,6 +125,8 @@ public class NielWarnProj10 {
         return invalid;
     }
     
+    // method to compare value from charArr to the key, if they are the same
+    // it returns true and tells user it cannot be saved
     public static boolean validIdentifier(char[] charArr, String key) {
         boolean invalid = false;
         char firstLetter = key.charAt(0);
