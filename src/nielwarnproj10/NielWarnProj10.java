@@ -44,9 +44,10 @@ public class NielWarnProj10 {
                             "keyword, I'll let you know.");
         
         int userMenuChoice;
-        String userKeyword, deletedKeyword;
-        boolean again = true;
-        boolean valid;
+        String userKeyword, deletedKeyword; 
+        boolean again = true; // boolean for do-while loop
+        boolean invalid; // true or false value returned from validSymbol checker function 
+        boolean invalidLetter; // true or false value returned from validIdentifier checker function
         Scanner userInput = new Scanner(System.in); // user input
         
         // display menu choices to run each part of Table class
@@ -65,9 +66,16 @@ public class NielWarnProj10 {
                 case 1:
                     System.out.print("Please enter a string to enter into the symbol table: ");
                     userKeyword = userInput.next();
-                    valid = validSymbol(symbolArray, userKeyword);
+                    invalid = validSymbol(symbolArray, userKeyword);
+                    invalidLetter = validIdentifier(validIdent, userKeyword);
                     
-                    if (valid) {
+                    if (!invalidLetter) {
+                        System.out.println("Cannot use key word '" + userKeyword + "'");
+                        System.out.println("Must begin identifier with letter, '$', or '_'");
+                        break;
+                    }
+                    
+                    if (invalid) {
                         System.out.println("Cannot use key word '" + userKeyword + "'");
                     } else {
                         symbolTable.insert(userKeyword);
@@ -79,6 +87,7 @@ public class NielWarnProj10 {
                     userKeyword = userInput.next();
                     deletedKeyword = symbolTable.delete(userKeyword);
                     
+                    // check if the deleted value is empty string or null
                     if (deletedKeyword.equals("")) {
                         System.out.println("Nothing in table to delete");
                     } else if (deletedKeyword != null) {
@@ -99,13 +108,28 @@ public class NielWarnProj10 {
         } while (again);
     }
     
+    // method to compare value from symbolArr to the key, if they are the same
+    // it returns true and tells user it cannot be saved
     public static boolean validSymbol(String[] symbolArr, String key) {
-        boolean valid = false;
+        boolean invalid = false;
+        // loop through the symbolArray to compare with key
         for (String item : symbolArr) {
             if (item.compareTo(key) == 0) {
-                valid = true;
+                invalid = true;
             }
         }
-        return valid;
+        return invalid;
+    }
+    
+    public static boolean validIdentifier(char[] charArr, String key) {
+        boolean invalid = false;
+        char firstLetter = key.charAt(0);
+        // loop through the charArray to compare with the key
+        for (char letter : charArr) {
+            if (letter == firstLetter) {
+                invalid = true;
+            }
+        }
+        return invalid;
     }
 }
